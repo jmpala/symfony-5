@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "8.0",
+        "php": "8.0.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "babdev/pagerfanta-bundle": "^3.3",
@@ -41,14 +41,7 @@
         "zenstruck/foundry": "^1.1"
     },
     "config": {
-        "preferred-install": {: {
-        "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "symfony/debug-bundle": "5.3.*",
-        "symfony/maker-bundle": "^1.15",
-        "symfony/var-dumper": "5.3.*",
-        "symfony/web-profiler-bundle": "5.3.*",
-        "zenstruck/foundry": "^1.1"
-    },
+        "preferred-install": {
             "*": "dist"
         },
         "sort-packages": true,
