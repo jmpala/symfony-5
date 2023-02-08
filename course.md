@@ -129,18 +129,6 @@ security:
     hide_user_not_found: false
 ```
 
-The logout functionality is already implemented by Symfony. We can set the "logout" property to true in the security.yaml file. This will set a listener to the logout (by default "/logout") route and will clear the session.
-
-```yaml
-security:
-    # ...
-    firewalls:
-        # ...
-        main:
-            # ...
-            logout: true
-```
-
 ### Authorization
 
 #### Roles
