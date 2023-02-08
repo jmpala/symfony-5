@@ -20,12 +20,12 @@ Divided into 2 parts:
 php bin/console make:user
 ```
 
-It added a "app_user_provider" into "security.yaml" file. It is an object that knows how to load User objects from the database (or elsewhere).
+It added "app_user_provider" into "security.yaml" file. It is an object that knows how to load User objects from the database (or elsewhere). The provider is called by the firewall, at user authentication time or after each request, except when set "stateless: true" in the firewall configuration.
 
 ```yaml
 security:
     # ...
-    providers:
+    providers: # This key is always required, weather you use it or not
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -112,7 +112,22 @@ return new Passport(
         ));
 ``` 
 
+We can also define our own custom authentication failure behaviour:
 
+```php
+// SomeAuthenticator extends AbstractAuthenticator
+// in the onAuthenticationFailure method
+$request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
+return new RedirectResponse($this->router->generate('app_login'));
+```
+
+On the log-in we can throw the "UserNotFoundException". The same has a method called "getMessageKey" that gives us the message to show to the user, hiding sensible information. Symfony converts the exception into a "BadCredentialsException" upon configuration.
+
+```yaml
+security:
+    # ...
+    hide_user_not_found: false
+```
 
 ### Authorization
 
