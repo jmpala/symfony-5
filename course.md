@@ -24,13 +24,13 @@ It added "app_user_provider" into "security.yaml" file. It is an object that kno
 
 ```yaml
 security:
-    # ...
-    providers: # This key is always required, weather you use it or not
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
-    # ...
+  # ...
+  providers: # This key is always required, weather you use it or not
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email
+  # ...
 ```
 
 - Creation of a Controller and its Login page
@@ -46,15 +46,15 @@ Firewalls are defined in the security.yaml file.
 
 ```yaml
 security:
-    # ...
-    firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main: # generic firewall
-            lazy: true
-            provider: app_user_provider
-    #...
+  # ...
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    main: # generic firewall
+      lazy: true
+      provider: app_user_provider
+  #...
 ```
 
 The firewalls are executed one by one and the first firewall that matches the request is used. The match is done by the pattern option (regex). Take in count that a pattern mishandling can lead to firewalls not being executed.
@@ -73,12 +73,12 @@ In order to use the Authenticator, we need to add it to the "security.yaml" file
 
 ```yaml
 security:
+  # ...
+  firewalls:
     # ...
-    firewalls:
-        # ...
-        main:
-            # ...
-            custom_authenticator: App\Security\AuthenticatorClass
+    main:
+      # ...
+      custom_authenticator: App\Security\AuthenticatorClass
 ```
 
 The Authenticator class has the following methods:
@@ -125,8 +125,20 @@ On the log-in we can throw the "UserNotFoundException". The same has a method ca
 
 ```yaml
 security:
+  # ...
+  hide_user_not_found: false
+```
+
+The logout functionality is already implemented by Symfony. We can set the "logout" property to true in the security.yaml file. This will set a listener to the logout (by default "/logout") route and will clear the session.
+
+```yaml
+security:
     # ...
-    hide_user_not_found: false
+    firewalls:
+        # ...
+        main:
+            # ...
+            logout: true
 ```
 
 ### Authorization
