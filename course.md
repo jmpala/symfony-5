@@ -24,11 +24,13 @@ It added a "app_user_provider" into "security.yaml" file. It is an object that k
 
 ```yaml
 security:
+    # ...
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
+    # ...
 ```
 
 - Creation of a Controller and its Login page
@@ -84,6 +86,8 @@ The Authenticator class has the following methods:
 - authenticate
 - onAuthenticationSuccess
 - onAuthenticationFailure
+
+Authenticator use Passports and Badges to authenticate users (on authenticate method). The passport takes a UserBadge instance as first parameter and a CredentialsInterface as a second parameter. Because we defined an entity provider in the security.yaml file, the UserBadge will be automatically loaded from the database and then the credentials will be checked.
 
 ### Authorization
 
