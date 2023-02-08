@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "8.0.0",
+        "php": "8.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "babdev/pagerfanta-bundle": "^3.3",
@@ -23,6 +23,7 @@
         "symfony/framework-bundle": "5.3.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "5.3.*",
+        "symfony/security-bundle": "5.3.*",
         "symfony/stopwatch": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
         "symfony/ux-chartjs": "^1.3",
