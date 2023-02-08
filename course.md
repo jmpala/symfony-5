@@ -114,6 +114,26 @@ return new Passport(
 
 We can also use the "PasswordCredentials" class to automatically check the given passwords of a user with the on e saved on the database.
 
+The Passport gives us the possibility to register more Badges on its third parameter. Here we can send an array of Badges that we want to register.
+
+```php
+return new Passport(
+            new UserBadge(/* some params */),
+            new PasswordCredentials(/* some params */),
+            [
+                new CsrfTokenBadge('string', $csrfToken),
+                // more Badges
+            ]
+);
+```
+
+And on the form we just add the following code:
+
+```html
+<!-- Twig will generate a Token for us -->
+<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+```
+
 We can also define our own custom authentication failure behaviour:
 
 ```php
