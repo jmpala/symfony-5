@@ -84,10 +84,35 @@ security:
 The Authenticator class has the following methods:
 - supports (check if the request is supported)
 - authenticate
-- onAuthenticationSuccess
-- onAuthenticationFailure
+- onAuthenticationSuccess (executed if the authentication is successful)
+- onAuthenticationFailure (executed if the authentication is not successful)
 
 Authenticator use Passports and Badges to authenticate users (on authenticate method). The passport takes a UserBadge instance as first parameter and a CredentialsInterface as a second parameter. Because we defined an entity provider in the security.yaml file, the UserBadge will be automatically loaded from the database and then the credentials will be checked.
+
+We can define our own custom Passport as follows:
+
+```php
+// SomeAuthenticator extends AbstractAuthenticator
+// in the authenticate method
+return new Passport(
+            new UserBadge($email, function ($userIdentifier) { // does the user exist?
+                $user = $this->userRepository->findOneBy(['email' => $userIdentifier]);
+
+                if (!$user) {
+                    throw new UserNotFoundException();
+                }
+
+                return $user;
+            }),
+            new CustomCredentials(
+                function ($credentials, UserInterface $user) { // does he have valid credentials?
+                    return password_verify($credentials, $user->getPassword());
+                },
+                $password
+        ));
+``` 
+
+
 
 ### Authorization
 
