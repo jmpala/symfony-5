@@ -202,7 +202,34 @@ There are several ways to handle Authorization within Symfony. We can configure 
 - "security.yaml" file
 - controller annotations
 
+#### Redirect the User, when access requested page and not logged-in
 
+We can set the redirection to a page through:
 
-#### Roles
+- "security.yaml" file, property "entry_point", indicating an Authenticator
+- or directly at one Authenticator, implementing "AuthenticationEntryPointInterface"
 
+Example of "security.yaml" file:
+
+```yaml
+security:
+    # ...
+    firewalls:
+        # ...
+        main:
+            # ... We select only one of the two Authenticators options
+            entry_point: App\Security\LoginFormAuthenticator
+            custom_authenticator:
+                - App\Security\LoginFormAuthenticator
+                - App\Security\DummyAuthenticator
+```
+
+Example of Authenticator:
+
+```php
+// SomeAuthenticator implements AuthenticationEntryPointInterface
+public function start(Request $request, AuthenticationException $authException = null): Response
+{
+    return new RedirectResponse('app_login');
+}
+```
