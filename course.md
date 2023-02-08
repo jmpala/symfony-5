@@ -112,6 +112,8 @@ return new Passport(
         ));
 ``` 
 
+We can also use the "PasswordCredentials" class to automatically check the given passwords of a user with the on e saved on the database.
+
 We can also define our own custom authentication failure behaviour:
 
 ```php

@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 
@@ -49,13 +50,14 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
                 return $user;
             }),
-            new CustomCredentials(
-                function ($credentials, UserInterface $user) {
-                    return $credentials === 'test_123';
-                },
-                $password
-        ));
+            new PasswordCredentials($password)
+        );
     }
+//            new CustomCredentials(
+//                function ($credentials, UserInterface $user) {
+//                    return $credentials === 'test_123';
+//                },
+//                $password)
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
