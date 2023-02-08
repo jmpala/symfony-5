@@ -112,7 +112,7 @@ return new Passport(
         ));
 ``` 
 
-We can also use the "PasswordCredentials" class to automatically check the given passwords of a user with the on e saved on the database.
+We can also use the "PasswordCredentials" class to automatically check the given passwords of a user with the one saved on the database.
 
 The Passport gives us the possibility to register more Badges on its third parameter. Here we can send an array of Badges that we want to register.
 
@@ -122,7 +122,7 @@ return new Passport(
             new PasswordCredentials(/* some params */),
             [
                 new CsrfTokenBadge('string', $csrfToken),
-                new RememberMeBadge()
+                (new RememberMeBadge())->enable(), // we enable the REMEMBERME cookie
                 // more Badges
             ]
 );
@@ -143,6 +143,21 @@ We can register the "RememberMeBadge" into the "Passport", to set a "REMEMBERME"
 </label>
 ```
 
+Or we can tell Symfony through the "security.yaml" file to always set the "REMEMBERME" cookie. The "signature_properties" let us configure which User values to use to generate the cookie signature. To for example, If we change the password, the cookie will be invalidated.
+
+```yaml
+security:
+    #...
+    firewalls:
+        # ...
+        main:
+            # ...
+
+            remember_me:
+                # always_remember_me: true
+                signature_properties: [password]
+```
+
 We can also define our own custom authentication failure behaviour:
 
 ```php
@@ -150,6 +165,14 @@ We can also define our own custom authentication failure behaviour:
 // in the onAuthenticationFailure method
 $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
 return new RedirectResponse($this->router->generate('app_login'));
+```
+
+To show error messages on the FE, we have to our disposal the service "AuthenticationUtils". With the same, we can retrieve the last authentication error and the last username entered by the user.
+
+```php
+// AuthenticationUtils is injected into the controller
+$authenticationUtils->getLastAuthenticationError()
+$authenticationUtils->getLastUsername()
 ```
 
 On the log-in we can throw the "UserNotFoundException". The same has a method called "getMessageKey" that gives us the message to show to the user, hiding sensible information. Symfony converts the exception into a "BadCredentialsException" upon configuration.
