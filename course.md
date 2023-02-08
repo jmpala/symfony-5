@@ -31,6 +31,7 @@ security:
                 property: email
 ```
 
+2. Creation of a Controller and its Login page
 
 ### Authorization
 
