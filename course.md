@@ -122,6 +122,7 @@ return new Passport(
             new PasswordCredentials(/* some params */),
             [
                 new CsrfTokenBadge('string', $csrfToken),
+                new RememberMeBadge()
                 // more Badges
             ]
 );
@@ -132,6 +133,14 @@ And on the form we just add the following code:
 ```html
 <!-- Twig will generate a Token for us -->
 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+```
+
+We can register the "RememberMeBadge" into the "Passport", to set a "REMEMBERME" cookie to the user's browser. This will keep the user logged-in even if the "PHPSESSID" is lost/erased. One option to set this cookie is to let the user request it through a form. The name of this input should be "_remember_me" or else we need to change the required name by the "RememberMeBadge" through the "security.yaml" file.
+
+```html
+<label>
+    <input type="checkbox" name="_remember_me" class="form-check-input">Remember me
+</label>
 ```
 
 We can also define our own custom authentication failure behaviour:
