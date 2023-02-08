@@ -197,5 +197,12 @@ security:
 
 ### Authorization
 
+There are several ways to handle Authorization within Symfony. We can configure it through:
+
+- "security.yaml" file
+- controller annotations
+
+
+
 #### Roles
 
