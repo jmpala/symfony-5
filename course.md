@@ -205,6 +205,19 @@ There are several ways to handle Authorization within Symfony. We can configure 
 - controller annotations
 - Twig templates
 
+#### Assign roles hierarchy
+
+In the "security.yaml" file we can define the roles hierarchy. The roles are defined as an array of strings. The first role is the parent role and the following are the children roles.
+
+```yaml
+security:
+    # ...
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_PARENT: [ROLE_CHILD_1, ROLE_CHILD_2]
+```
+
 #### Examples of authorization in controller
 
 Checking User roles by method:

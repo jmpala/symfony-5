@@ -62,4 +62,14 @@ class AdminController extends AbstractController
     {
         return new Response('Sounds like a GREAT feature for V2!');
     }
+
+    /**
+     * @Route("/admin/answers")
+     */
+    public function adminAnswers(): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN_COMMENT');
+
+        return new Response('Sounds like a GREAT feature for V2!');
+    }
 }
