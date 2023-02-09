@@ -19,7 +19,18 @@ class AppFixtures extends Fixture
     {
         TagFactory::createMany(100);
 
-        $questions = QuestionFactory::createMany(20);
+        UserFactory::createOne(['email' => 'user@user.com']);
+        UserFactory::createOne([
+            'email' => 'admin@user.com',
+            'roles' => ['ROLE_ADMIN'],
+        ]);
+        UserFactory::createMany(10);
+
+        $questions = QuestionFactory::createMany(20, function () {
+            return [
+                'owner' => UserFactory::Random(),
+            ];
+        });
 
         QuestionTagFactory::createMany(100, function() {
             return [
@@ -44,13 +55,6 @@ class AppFixtures extends Fixture
                 'question' => $questions[array_rand($questions)]
             ];
         })->needsApproval()->many(20)->create();
-
-        UserFactory::createOne(['email' => 'user@user.com']);
-        UserFactory::createOne([
-            'email' => 'admin@user.com',
-            'roles' => ['ROLE_ADMIN'],
-        ]);
-        UserFactory::createMany(10);
 
         $manager->flush();
     }
