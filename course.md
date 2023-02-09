@@ -203,6 +203,7 @@ There are several ways to handle Authorization within Symfony. We can configure 
 
 - "security.yaml" file
 - controller annotations
+- Twig templates
 
 #### Examples of authorization in controller
 
@@ -233,6 +234,16 @@ Checking User roles by annotation:
 ```
 
 The application always throw an "AccessDeniedException" when the user is not authorized to access the requested page.
+
+#### Examples of authorization in Twig
+
+Checking User roles by method:
+
+```html
+{% if is_granted('ROLE_USER') %}
+    <a href="{{ path('app_action') }}">Link</a>
+{% endif %}
+```
 
 #### Redirect the User, when access requested page and not logged-in
 
