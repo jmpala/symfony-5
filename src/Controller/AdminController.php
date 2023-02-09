@@ -54,4 +54,12 @@ class AdminController extends AbstractController
             'chart2' => $chart2,
         ]);
     }
+
+    /**
+     * @Route("/admin/login")
+     */
+    public function adminLogin(): Response
+    {
+        return new Response('Sounds like a GREAT feature for V2!');
+    }
 }

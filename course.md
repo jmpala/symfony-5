@@ -245,6 +245,13 @@ Checking User roles by method:
 {% endif %}
 ```
 
+#### Different types of roles
+
+- "ROLE_USER" - A regular user
+- "PUBLIC_ACCESS" - A user that is not logged-in
+- "IS_AUTHENTICATED_FULLY" - A user that has been authenticated fully (logged in)
+- "IS_AUTHENTICATED_REMEMBERED" - A user that has been remembered via the "REMEMBERME" cookie
+
 #### Redirect the User, when access requested page and not logged-in
 
 We can set the redirection to a page through:
