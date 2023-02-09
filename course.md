@@ -204,6 +204,36 @@ There are several ways to handle Authorization within Symfony. We can configure 
 - "security.yaml" file
 - controller annotations
 
+#### Examples of authorization in controller
+
+Checking User roles by method:
+
+```php
+/**
+     * @Route("/questions/new")
+     */
+    public function new()
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER'); // by method
+        return new Response('Sounds like a GREAT feature for V2!');
+    }
+```
+
+Checking User roles by annotation:
+
+```php
+/**
+     * @Route("/questions/new")
+     * @IsGranted("ROLE_USER") // by annotation
+     */
+    public function new()
+    {
+        return new Response('Sounds like a GREAT feature for V2!');
+    }
+```
+
+The application always throw an "AccessDeniedException" when the user is not authorized to access the requested page.
+
 #### Redirect the User, when access requested page and not logged-in
 
 We can set the redirection to a page through:
@@ -235,3 +265,4 @@ public function start(Request $request, AuthenticationException $authException =
     return new RedirectResponse('app_login');
 }
 ```
+
