@@ -63,6 +63,8 @@ The firewalls are executed one by one and the first firewall that matches the re
 
 Symfony use the "Authenticator" system to authenticate users. It is a class that implements "Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface".
 
+In case of Login we can use the "AbstractLoginFormAuthenticator" that has already generic login logic implemented.
+
 We can create our own Authenticator with command:
 
 ```shell
