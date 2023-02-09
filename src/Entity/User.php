@@ -191,6 +191,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ]);
     }
 
+    public function getDisplayName(): String
+    {
+        return $this->getFirstName() ?? $this->getEmail();
+    }
+
     /**
      * @return Collection|Question[]
      */
