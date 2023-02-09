@@ -29,7 +29,7 @@ class AnswerController extends BaseController
 
     /**
      * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
-     * @IsGranted('IS_AUTHENTICATED_REMEMBERED')
+     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
      */
     public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
     {

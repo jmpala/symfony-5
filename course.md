@@ -317,3 +317,11 @@ In order to impersonate a user, we need to be logged-in as an admin (with role "
 - or through a query string "?switch_user={username}"
 
 This will set a "SWITCH_USER" cookie in the browser. The same will be used to impersonate the user. In order to exit the impersonation mode, we can replace the username with "_exit". 
+
+---
+
+- Wie Symfony die Login-Funktionalität implementiert (schon gesehen)
+
+- Wie Symfony die Athorisierung implementiert (was jetzt lerne) "Roles and Permissions" (morgen vormitags)
+
+- Danach: fahre mit der Entwicklung meines ÜbungsProjekt fort 
