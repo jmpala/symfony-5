@@ -274,6 +274,9 @@
             ".env"
         ]
     },
+    "symfony/form": {
+        "version": "v5.3.14"
+    },
     "symfony/framework-bundle": {
         "version": "5.3",
         "recipe": {
@@ -332,6 +335,9 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v5.3.14"
+    },
     "symfony/orm-pack": {
         "version": "v2.0.0"
     },
@@ -340,6 +346,9 @@
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.17.1"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.27.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.17.1"
@@ -448,6 +457,18 @@
     },
     "symfony/ux-chartjs": {
         "version": "v1.3.0"
+    },
+    "symfony/validator": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "c32cfd98f714894c4f128bb99aa2530c1227603c"
+        },
+        "files": [
+            "config/packages/validator.yaml"
+        ]
     },
     "symfony/var-dumper": {
         "version": "v5.0.4"
