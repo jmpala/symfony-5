@@ -20,28 +20,30 @@
         </div>
         <div class="col-2 text-end">
             <small>{{ answer.createdAt|ago }}</small>
-            <div
-                class="vote-arrows"
-                {{ stimulus_controller('answer-vote', {
-                    url: path('answer_vote', {
-                        id: answer.id
-                    })
-                }) }}
-            >
-                <button
-                    class="vote-up btn btn-link"
-                    name="direction"
-                    value="up"
-                    {{ stimulus_action('answer-vote', 'clickVote') }}
-                ><i class="far fa-arrow-alt-circle-up"></i></button>
-                <button
-                    class="vote-down btn btn-link"
-                    name="direction"
-                    value="down"
-                    {{ stimulus_action('answer-vote', 'clickVote') }}
-                ><i class="far fa-arrow-alt-circle-down"></i></button>
-                <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
-            </div>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div
+                    class="vote-arrows"
+                    {{ stimulus_controller('answer-vote', {
+                        url: path('answer_vote', {
+                            id: answer.id
+                        })
+                    }) }}
+                >
+                    <button
+                        class="vote-up btn btn-link"
+                        name="direction"
+                        value="up"
+                        {{ stimulus_action('answer-vote', 'clickVote') }}
+                    ><i class="far fa-arrow-alt-circle-up"></i></button>
+                    <button
+                        class="vote-down btn btn-link"
+                        name="direction"
+                        value="down"
+                        {{ stimulus_action('answer-vote', 'clickVote') }}
+                    ><i class="far fa-arrow-alt-circle-down"></i></button>
+                    <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </li>
