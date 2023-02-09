@@ -297,3 +297,23 @@ public function start(Request $request, AuthenticationException $authException =
 }
 ```
 
+#### User Impersonation
+
+Symfony gives us the possibility to impersonate other user accounts in order to experience our application through their perspective. We can enable this functionality by modifying the "security.yaml" file.
+
+```yaml
+security:
+    # ...
+    firewalls:
+        # ...
+        main:
+            # ...
+            switch_user: true
+```
+
+In order to impersonate a user, we need to be logged-in as an admin (with role "ROLE_ALLOWED_TO_SWITCH"). We can do this as follows:
+
+- by accessing the URL "/_switch_user/{username}"
+- or through a query string "?switch_user={username}"
+
+This will set a "SWITCH_USER" cookie in the browser. The same will be used to impersonate the user. In order to exit the impersonation mode, we can replace the username with "_exit". 

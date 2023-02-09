@@ -13,7 +13,10 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light px-1">
+        <nav
+                class="navbar navbar-expand-lg navbar-light bg-light px-1"
+                {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}
+        >
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ path('app_homepage') }}">
                     <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
@@ -51,6 +54,13 @@
                                         alt="{{ app.user.firstName }}">
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li>
+                                        <a class="dropdown-item" href="{{ path('app_homepage', {
+                                            '_switch_user': '_exit'
+                                        }) }}">Exit Impersonation</a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
                                 </li>
