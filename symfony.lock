@@ -2,6 +2,9 @@
     "babdev/pagerfanta-bundle": {
         "version": "v3.3.0"
     },
+    "beberlei/assert": {
+        "version": "v3.3.2"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -148,6 +151,9 @@
     "pagerfanta/twig": {
         "version": "v3.3.0"
     },
+    "paragonie/constant_time_encoding": {
+        "version": "v2.6.3"
+    },
     "php": {
         "version": "7.2.5"
     },
@@ -185,6 +191,9 @@
             "config/routes/scheb_2fa.yaml"
         ]
     },
+    "scheb/2fa-totp": {
+        "version": "v5.13.2"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -196,6 +205,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "spomky-labs/otphp": {
+        "version": "v10.0.3"
     },
     "stof/doctrine-extensions-bundle": {
         "version": "1.2",
@@ -545,6 +557,9 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.11.0"
+    },
+    "thecodingmachine/safe": {
+        "version": "v2.4.0"
     },
     "twig/extra-bundle": {
         "version": "v3.0.1"
