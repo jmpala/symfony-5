@@ -12,11 +12,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, UserAuthenticatorInterface $userAuthenticator, FormLoginAuthenticator $formLoginAuthenticator): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -36,17 +38,35 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $formLoginAuthenticator,
-                $request
+            $signatureComponents = $verifyEmailHelper->generateSignature(
+                'app_verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' => $user->getId()]
             );
 
-            // return $this->redirectToRoute('app_homepage');
+            $this->addFlash('success', 'Registration successful! Please check your email to verify your account. - ' . $signatureComponents->getSignedUrl());
+
+//            return $userAuthenticator->authenticateUser( // logic for authenticating the user
+//                $user,
+//                $formLoginAuthenticator,
+//                $request
+//            );
+
+            return $this->redirectToRoute('app_homepage');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/email", name="app_verify_email")
+     * @return Response
+     */
+    public function verifyUserEmail(): Response
+    {
+
     }
 }
