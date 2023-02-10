@@ -42,6 +42,10 @@ security:
 
             login_throttling: true
 
+            two_factor:
+                auth_form_path: 2fa_login
+                check_path: 2fa_login_check
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -51,6 +55,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/logout, roles: PUBLIC_ACCESS } # always allow logout
+        - { path: ^/2fa, roles: IS_AUTHENTICATED_2FA_IN_PROGRESS } # cant enter unless full credentials are provided
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/admin/foo, roles: ROLE_USER }
