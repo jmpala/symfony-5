@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+class SecurityController extends BaseController
 {
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -22,5 +25,21 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+    }
+
+    /**
+     * @Route("/authenticate/2fa/enable", name="app_2fa_enable")
+     * @IsGranted("ROLE_USER")
+     */
+    public function enable2fa(TotpAuthenticatorInterface $authenticator, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if (!$user->isTotpAuthenticationEnabled()) {
+            $user->setTotpSecret($authenticator->generateSecret());
+
+            $entityManager->flush();
+        }
+
+        dd($authenticator->getQRContent($user));
     }
 }
