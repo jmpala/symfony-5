@@ -91,4 +91,13 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_login');
     }
+
+    /**
+     * @Route("/verify/resend", name="app_resend_verification_email")
+     * @return Response
+     */
+    public function resendVerifyEmail(): Response
+    {
+        return $this->render('registration/resend_verify_email.html.twig');
+    }
 }
