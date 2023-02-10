@@ -80,7 +80,7 @@ security:
     # ...
     main:
       # ...
-      custom_authenticator: App\Security\AuthenticatorClass
+      custom_authenticator: App\Security\AuthenticatorClass # can be an array of Authenticators
 ```
 
 The Authenticator class has the following methods:
@@ -114,7 +114,8 @@ return new Passport(
         ));
 ``` 
 
-We can also use the "PasswordCredentials" class to automatically check the given passwords of a user with the one saved on the database.
+We can also use the "PasswordCredentials" class to 
+check the given passwords of a user with the one saved on the database.
 
 The Passport gives us the possibility to register more Badges on its third parameter. Here we can send an array of Badges that we want to register.
 
@@ -196,6 +197,8 @@ security:
             # ...
             logout: true
 ```
+
+We need to have a controller action dedicated to the logout, even if it does nothing. We just need this function for the route attribute.
 
 ### Authorization
 
@@ -318,10 +321,31 @@ In order to impersonate a user, we need to be logged-in as an admin (with role "
 
 This will set a "SWITCH_USER" cookie in the browser. The same will be used to impersonate the user. In order to exit the impersonation mode, we can replace the username with "_exit". 
 
+#### Voters
+
+Symfony has a system of "Voters" that can be used to check if a user is authorized to perform an action. The "Voters" are classes that implement the "VoterInterface" interface.
+
+Out of the box we have the following "Voters":
+
+- "AuthenticatedVoter" - checks if the user is authenticated
+- "RoleHierarchyVoter" - checks if the user has a specific role
+
+The "AuthenticatedVoter" checks first if the attribute starts with "IS_AUTHENTICATED_" in order to start the authentication process.
+
+The "RoleHierarchyVoter" checks first if the attribute starts with "ROLE_" in order to start the authentication process.
+
+The three states that a "Voter" can return are:
+
+- "ACCESS_GRANTED" - the user is authorized to perform the action
+- "ACCESS_DENIED" - the user is not authorized to perform the action
+- "ACCESS_ABSTAIN" - the "Voter" is not able to decide if the user is authorized to perform the action
+
+
+
 ---
 
 - Wie Symfony die Login-Funktionalität implementiert (schon gesehen)
 
 - Wie Symfony die Athorisierung implementiert (was jetzt lerne) "Roles and Permissions" (morgen vormitags)
 
-- Danach: fahre mit der Entwicklung meines ÜbungsProjekt fort 
+- Danach: fahre mit der Entwicklung meines ÜbungsProjekt fort
